@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>LLM-Generated Programmatic Controllers | Weekly Progress</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="page">
+      <header class="hero">
+        <p class="tag">Research Progress Dashboard</p>
+        <h1>LLM-Generated Programmatic Controllers with Gradient-Free Parameter Tuning</h1>
+        <p class="subtitle">
+          A simple weekly update page for our team's current milestones and active work.
+        </p>
+      </header>
+
+      <section class="card status-card" aria-labelledby="status-title">
+        <div>
+          <h2 id="status-title">What we're currently working on</h2>
+          <p>
+            This week we are refining controller templates and evaluating gradient-free tuning stability across benchmark tasks.
+          </p>
+        </div>
+        <div class="date-block">
+          <span class="date-label">Current date</span>
+          <time id="current-date" datetime=""></time>
+        </div>
+      </section>
+
+      <section class="card" aria-labelledby="updates-title">
+        <h2 id="updates-title">Weekly updates</h2>
+        <ul class="updates-list">
+          <li>
+            <strong>Week of Sep 30:</strong> Added a new prompt pattern for generating compact controller candidates.
+          </li>
+          <li>
+            <strong>Week of Oct 7:</strong> Tuned parameter search bounds and compared random search against CMA-ES.
+          </li>
+          <li>
+            <strong>Week of Oct 14:</strong> Improved evaluation scripts for reproducibility and logging.
+          </li>
+        </ul>
+        <p class="tip">
+          Tip: edit these bullet points every week and commit the changes to keep your timeline up to date.
+        </p>
+      </section>
+    </main>
+
+    <script>
+      const now = new Date();
+      const dateElement = document.getElementById("current-date");
+      dateElement.textContent = now.toLocaleDateString(undefined, {
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+      });
+      dateElement.setAttribute("datetime", now.toISOString());
+    </script>
+  </body>
+</html>
