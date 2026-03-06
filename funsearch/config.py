@@ -61,7 +61,7 @@ class Config:
   programs_database: ProgramsDatabaseConfig = dataclasses.field(
       default_factory=ProgramsDatabaseConfig)
   num_samplers: int = 1
-  num_evaluators: int = 25 # 140
-  samples_per_prompt: int = 50
+  num_evaluators: int = 5 # 140
+  samples_per_prompt: int = 5
   seed: int = 30
   # num_evaluators_per_sampler: int = 1
