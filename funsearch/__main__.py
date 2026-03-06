@@ -299,7 +299,6 @@ def run(spec_file,
 
   q = Queue(maxsize=500)
   should_stop = threading.Event()
-  iterations = -1
 
   def producer(s, iterations, logging):
       try:
@@ -333,8 +332,8 @@ def run(spec_file,
               stop = s.evaluate_samples(dict_prompt_sample)  # CPU-intensive
 
               logging.info("Consumer Queue length: %d", q.qsize())
-              print("Stop is True")
               if stop:
+                  print("Stop is True")
                   should_stop.set()
                   break
       except Exception as e:
