@@ -71,9 +71,13 @@ class CustomLLM(torch.nn.Module):
         start = time.perf_counter()
         print_color("🧠 Inferring device map across GPUs...", CYAN)
         device_count = torch.cuda.device_count()
-        # if the model is small make this small. for 7B 19.0 is good
-        # if it is big make it like 21.0
-        max_mem = {i: "15.0GiB" for i in range(device_count)}
+        # Build a conservative per-GPU memory budget based on real device memory.
+        # This avoids overcommitting VRAM on smaller cards (e.g., 12GB GPUs).
+        max_mem = {}
+        for i in range(device_count):
+            total_gib = torch.cuda.get_device_properties(i).total_memory / (1024 ** 3)
+            budget_gib = max(4.0, total_gib - 2.0)
+            max_mem[i] = f"{budget_gib:.1f}GiB"
         # max_mem = {}
         # max_mem[0] = "20.0GiB"
         # max_mem[1] = "17.0GiB"
@@ -84,14 +88,28 @@ class CustomLLM(torch.nn.Module):
         # Step 4: Load model
         start = time.perf_counter()
         print_color("�� Loading model weights with device map and quantization...", CYAN)
-        self.model = AutoModelForCausalLM.from_pretrained(
-            model_name,
-            trust_remote_code=True,
-            quantization_config=quant_config,
-            device_map="cuda:0" if "Qwen3-1.7B" in model_name else "auto",
-            max_memory=max_mem,
-            low_cpu_mem_usage=True,
-        )
+        try:
+            self.model = AutoModelForCausalLM.from_pretrained(
+                model_name,
+                trust_remote_code=True,
+                quantization_config=quant_config,
+                device_map="cuda:0" if "Qwen3-1.7B" in model_name else "auto",
+                max_memory=max_mem,
+                low_cpu_mem_usage=True,
+            )
+        except RuntimeError as e:
+            if "out of memory" not in str(e).lower():
+                raise
+            print_color("⚠️ OOM while loading model; retrying with reduced GPU budget.", YELLOW)
+            reduced_mem = {i: "8.0GiB" for i in range(device_count)}
+            self.model = AutoModelForCausalLM.from_pretrained(
+                model_name,
+                trust_remote_code=True,
+                quantization_config=quant_config,
+                device_map="auto",
+                max_memory=reduced_mem,
+                low_cpu_mem_usage=True,
+            )
 
         # # model_name="Qwen/Qwen2.5-Coder-7B-Instruct",
         # # Qwen2.5-Coder-7B-Instruct does not have a padding token.

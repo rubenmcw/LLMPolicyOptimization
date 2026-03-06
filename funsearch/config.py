@@ -39,7 +39,7 @@ class ProgramsDatabaseConfig:
   cluster_sampling_temperature_period: int = 30_000
   backup_period: int = 30
   backup_folder: str = './data/backups'
-  score_threshold: float = 950.0 # high
+  score_threshold: float = 100.0 # high
   min_score: float = -float('inf') # low
 
 
