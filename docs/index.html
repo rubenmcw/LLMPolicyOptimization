@@ -36,6 +36,176 @@
         </p>
       </section>
 
+      <!-- Semester project showcase -->
+      <section class="card showcase" aria-labelledby="showcase-title">
+        <div class="section-kicker">Semester Project Summary</div>
+        <h2 id="showcase-title">From LLM-Generated Policies to a Working Pendubot Swing-Up Controller</h2>
+        <p class="lead">
+          Over the semester, our team explored whether LLM-guided program search could help
+          synthesize interpretable controllers for a pendubot swing-up task. We began by testing
+          FunSearch-style policies in simulation, then moved toward a custom pendubot model and a
+          hardware-informed three-phase controller. Our final result was a working pendubot swing-up
+          that reaches the top equilibrium.
+        </p>
+
+        <div class="result-banner" role="note" aria-label="Final project result">
+          <div>
+            <span class="result-label">Final Result</span>
+            <strong>Successful pendubot swing-up to the upright equilibrium</strong>
+          </div>
+          <p>
+            The completed controller combines simulation-driven exploration, hardware testing, and
+            classical control structure to move the pendubot from the downward equilibrium to the
+            upright equilibrium at the top.
+          </p>
+        </div>
+
+        <div class="showcase-grid">
+          <article class="mini-card">
+            <span class="step-number">01</span>
+            <h3>LLM / FunSearch Policy Exploration</h3>
+            <p>
+              We first used FunSearch-style generated policies in DeepMind Control's prebuilt
+              double-pendulum environment. The generated policies were evaluated visually through
+              simulation videos, then hand-pruned when parts of the policy were physically
+              nonsensical or unhelpful.
+            </p>
+          </article>
+
+          <article class="mini-card">
+            <span class="step-number">02</span>
+            <h3>Simulation Lessons</h3>
+            <p>
+              Early generated policies produced interesting behaviors, but they struggled when the
+              system started with no motion. To investigate whether the policies could swing up once
+              useful motion was present, the elbow was initialized near <code>pi</code> in some tests.
+            </p>
+          </article>
+
+          <article class="mini-card">
+            <span class="step-number">03</span>
+            <h3>Custom Pendubot Model</h3>
+            <p>
+              After discovering a large gap between the prebuilt simulation and the physical
+              pendubot, we pivoted to a custom DeepMind Control model using a custom MuJoCo XML with
+              physics parameters chosen to better match the real pendubot hardware.
+            </p>
+          </article>
+
+          <article class="mini-card">
+            <span class="step-number">04</span>
+            <h3>Hardware-Informed Controller</h3>
+            <p>
+              The final controller was no longer a purely generated policy. Instead, it became a
+              physically motivated three-phase swing-up strategy, with the first rock-up phase
+              loosely inspired by behavior found during FunSearch exploration.
+            </p>
+          </article>
+        </div>
+
+        <div class="controller-section" aria-labelledby="controller-title">
+          <h3 id="controller-title">Final Three-Phase Control Strategy</h3>
+          <p>
+            The final controller uses different behavior depending on where the pendubot is in the
+            swing-up process. This structure helped bridge the gap between interesting simulated
+            behavior and a controller that could work on the actual system.
+          </p>
+
+          <div class="phase-list">
+            <article class="phase-card">
+              <h4>Phase 1: Rock-Up</h4>
+              <p>
+                The rock-up phase gets the pendubot out of the stable downward equilibrium. It is
+                phase-dependent and behaves like a bang-bang controller: one side of the equilibrium
+                receives positive torque, while the opposite side receives negative torque.
+              </p>
+            </article>
+
+            <article class="phase-card">
+              <h4>Phase 2: Pump-Up</h4>
+              <p>
+                Outside approximately <code>0.92</code> radians, or about <code>52°</code>, the
+                controller pumps energy into the system using the negative shoulder angular velocity.
+                A <code>tanh</code> term smooths the torque instead of immediately saturating it.
+              </p>
+            </article>
+
+            <article class="phase-card">
+              <h4>Phase 3: LQR Catch</h4>
+              <p>
+                Near the top, the controller switches to a prebuilt LQR controller to catch and
+                stabilize the pendubot at the upright equilibrium. This final catch phase uses both
+                the shoulder and elbow actuators.
+              </p>
+            </article>
+          </div>
+        </div>
+
+        <div class="media-section" aria-labelledby="media-title">
+          <h3 id="media-title">Final Demonstrations</h3>
+          <p>
+            Add the strongest final videos here: one showing the custom simulation working and one
+            showing the physical pendubot reaching the top equilibrium on hardware.
+          </p>
+
+          <div class="video-grid">
+            <figure class="video-card">
+              <div class="video-placeholder">
+                <span>Simulation Video Placeholder</span>
+              </div>
+              <!-- Replace the placeholder above with this when the final simulation video is ready:
+              <video controls preload="metadata" poster="simulation-poster.jpg">
+                <source src="final-simulation.mp4" type="video/mp4" />
+                Your browser does not support the video tag.
+              </video>
+              -->
+              <figcaption>
+                <strong>Final simulation:</strong> custom DeepMind Control / MuJoCo pendubot model
+                reaching the upright equilibrium.
+              </figcaption>
+            </figure>
+
+            <figure class="video-card">
+              <div class="video-placeholder">
+                <span>Hardware Video Placeholder</span>
+              </div>
+              <!-- Replace the placeholder above with this when the hardware video is ready:
+              <video controls preload="metadata" poster="hardware-poster.jpg">
+                <source src="final-hardware-demo.mp4" type="video/mp4" />
+                Your browser does not support the video tag.
+              </video>
+              -->
+              <figcaption>
+                <strong>Hardware demo:</strong> physical pendubot swing-up reaching equilibrium at
+                the top.
+              </figcaption>
+            </figure>
+          </div>
+        </div>
+
+        <div class="takeaways" aria-labelledby="takeaways-title">
+          <h3 id="takeaways-title">Key Takeaways</h3>
+          <ul>
+            <li>
+              LLM-generated policies were useful for exploration, but not sufficient by themselves
+              for reliable hardware transfer.
+            </li>
+            <li>
+              The gap between the prebuilt simulation and the real pendubot motivated a custom
+              MuJoCo XML model with more realistic physical parameters.
+            </li>
+            <li>
+              Hardware testing revealed that increasing torque alone could not break through the
+              swing-up ceiling, motivating the smoother pump-up phase.
+            </li>
+            <li>
+              The final working solution combined ideas from FunSearch exploration with a structured
+              controller: rock-up, pump-up, and LQR catch.
+            </li>
+          </ul>
+        </div>
+      </section>
+
       <section class="card status-card" aria-labelledby="status-title">
         <div>
           <h2 id="status-title">What we're currently working on</h2>
