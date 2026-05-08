@@ -96,6 +96,187 @@ body {
   font-size: 0.95rem;
 }
 
+/* Semester project showcase */
+.showcase {
+  padding: 1.6rem;
+  overflow: hidden;
+}
+
+.section-kicker {
+  color: var(--accent);
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.showcase h2 {
+  margin: 0.35rem 0 0.75rem;
+  font-size: clamp(1.45rem, 2.5vw, 2rem);
+  line-height: 1.2;
+}
+
+.lead {
+  color: #374151;
+  font-size: 1.03rem;
+}
+
+.result-banner {
+  display: grid;
+  grid-template-columns: minmax(220px, 0.8fr) 1.2fr;
+  gap: 1rem;
+  align-items: center;
+  margin: 1.2rem 0;
+  padding: 1rem;
+  background: linear-gradient(135deg, #eef2ff, #f9fafb);
+  border: 1px solid #c7d2fe;
+  border-radius: 14px;
+}
+
+.result-banner p {
+  margin: 0;
+  color: #374151;
+}
+
+.result-label {
+  display: block;
+  color: var(--accent);
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.result-banner strong {
+  display: block;
+  margin-top: 0.15rem;
+  font-size: 1.05rem;
+}
+
+.showcase-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+  margin-top: 1.2rem;
+}
+
+.mini-card,
+.phase-card,
+.video-card,
+.takeaways {
+  background: #f9fafb;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+}
+
+.mini-card {
+  padding: 1rem;
+}
+
+.step-number {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  color: var(--accent);
+  background: var(--accent-soft);
+  border-radius: 999px;
+  font-weight: 800;
+  font-size: 0.82rem;
+}
+
+.mini-card h3,
+.controller-section h3,
+.media-section h3,
+.takeaways h3 {
+  margin-bottom: 0.45rem;
+}
+
+.mini-card p,
+.phase-card p,
+.video-card figcaption,
+.takeaways li {
+  color: #4b5563;
+}
+
+.controller-section,
+.media-section,
+.takeaways {
+  margin-top: 1.4rem;
+}
+
+.phase-list {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;
+  margin-top: 0.9rem;
+}
+
+.phase-card {
+  padding: 1rem;
+}
+
+.phase-card h4 {
+  margin: 0 0 0.4rem;
+}
+
+code {
+  background: #eef2ff;
+  color: #3730a3;
+  border-radius: 5px;
+  padding: 0.1rem 0.3rem;
+  font-size: 0.92em;
+}
+
+.video-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+  margin-top: 0.9rem;
+}
+
+.video-card {
+  margin: 0;
+  padding: 0.85rem;
+}
+
+.video-card video,
+.video-placeholder {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border-radius: 10px;
+  display: block;
+}
+
+.video-placeholder {
+  display: grid;
+  place-items: center;
+  min-height: 180px;
+  background:
+    linear-gradient(135deg, rgba(79, 70, 229, 0.18), rgba(79, 70, 229, 0.04)),
+    repeating-linear-gradient(45deg, #f3f4f6, #f3f4f6 10px, #eef2ff 10px, #eef2ff 20px);
+  border: 1px dashed #a5b4fc;
+  color: #4338ca;
+  font-weight: 800;
+  text-align: center;
+  padding: 1rem;
+}
+
+.video-card figcaption {
+  margin-top: 0.65rem;
+  font-size: 0.95rem;
+}
+
+.takeaways {
+  padding: 1rem;
+}
+
+.takeaways ul {
+  margin-bottom: 0;
+  padding-left: 1.2rem;
+}
+
 @media (max-width: 700px) {
   .status-card {
     grid-template-columns: 1fr;
@@ -103,5 +284,12 @@ body {
 
   .date-block {
     text-align: left;
+  }
+
+  .result-banner,
+  .showcase-grid,
+  .phase-list,
+  .video-grid {
+    grid-template-columns: 1fr;
   }
 }
