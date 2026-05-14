@@ -109,6 +109,32 @@
           </article>
         </div>
 
+        <!-- Early simulation limitations -->
+        <div class="media-section" aria-labelledby="early-sim-title">
+          <h3 id="early-sim-title">Early Simulation Limitations</h3>
+          <p>
+            Before moving to the custom pendubot model, we tested FunSearch-generated policies in
+            the original DeepMind Control double-pendulum simulation. These early policies produced
+            some interesting motion, but they were not reliable enough to transfer directly to the
+            hardware. The prebuilt simulation also had too much of a sim-to-real gap compared with
+            the physical pendubot, which motivated our pivot toward a custom MuJoCo XML model and a
+            more hardware-informed controller.
+          </p>
+
+          <figure class="video-card">
+            <video controls preload="metadata">
+              <source src="early-funsearch-simulation.mp4" type="video/mp4" />
+              Your browser does not support the video tag.
+            </video>
+            <figcaption>
+              <strong>Early FunSearch simulation:</strong> initial DeepMind Control double-pendulum
+              simulation using FunSearch-generated policies. This stage helped reveal both the
+              limitations of the early generated controllers and the sim-to-real gap between the
+              prebuilt environment and the physical pendubot.
+            </figcaption>
+          </figure>
+        </div>
+
         <div class="controller-section" aria-labelledby="controller-title">
           <h3 id="controller-title">Final Three-Phase Control Strategy</h3>
           <p>
@@ -181,12 +207,45 @@
           </div>
         </div>
 
+        <!-- Controller result plot -->
+        <div class="media-section" aria-labelledby="results-plot-title">
+          <h3 id="results-plot-title">Controller Behavior and Energy Results</h3>
+          <p>
+            To better understand the final controller behavior, we recorded the pendubot's joint
+            positions, joint velocities, control torques, and total energy over time. These plots
+            show how the controller injects energy during swing-up, transitions into the catch
+            region, and stabilizes near the upright equilibrium.
+          </p>
+
+          <figure class="video-card">
+            <img
+              src="controller-results.png"
+              alt="Pendubot controller results showing joint positions, joint velocities, control torques, and total energy over time."
+              style="width: 100%; height: auto; border-radius: 12px;"
+            />
+            <figcaption>
+              <strong>Final controller results:</strong> joint position, velocity, torque, and
+              energy traces from the pendubot swing-up. The plots summarize how the controller moves
+              the system out of the downward equilibrium, builds energy, and reaches the upright
+              equilibrium.
+            </figcaption>
+          </figure>
+        </div>
+
         <div class="takeaways" aria-labelledby="takeaways-title">
           <h3 id="takeaways-title">Key Takeaways</h3>
           <ul>
             <li>
               LLM-generated policies were useful for exploration, but not sufficient by themselves
               for reliable hardware transfer.
+            </li>
+            <li>
+              The initial DeepMind Control double-pendulum simulation had too much of a sim-to-real
+              gap to transfer directly to the physical pendubot.
+            </li>
+            <li>
+              The first FunSearch-generated control policies produced interesting simulated
+              behavior, but they were not reliable enough to serve as the final hardware controller.
             </li>
             <li>
               The gap between the prebuilt simulation and the real pendubot motivated a custom
