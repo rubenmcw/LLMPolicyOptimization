@@ -109,32 +109,6 @@
           </article>
         </div>
 
-        <!-- Early simulation limitations -->
-        <div class="media-section" aria-labelledby="early-sim-title">
-          <h3 id="early-sim-title">Early Simulation Limitations</h3>
-          <p>
-            Before moving to the custom pendubot model, we tested FunSearch-generated policies in
-            the original DeepMind Control double-pendulum simulation. These early policies produced
-            some interesting motion, but they were not reliable enough to transfer directly to the
-            hardware. The prebuilt simulation also had too much of a sim-to-real gap compared with
-            the physical pendubot, which motivated our pivot toward a custom MuJoCo XML model and a
-            more hardware-informed controller.
-          </p>
-
-          <figure class="video-card">
-            <video controls preload="metadata">
-              <source src="early-funsearch-simulation.mp4" type="video/mp4" />
-              Your browser does not support the video tag.
-            </video>
-            <figcaption>
-              <strong>Early FunSearch simulation:</strong> initial DeepMind Control double-pendulum
-              simulation using FunSearch-generated policies. This stage helped reveal both the
-              limitations of the early generated controllers and the sim-to-real gap between the
-              prebuilt environment and the physical pendubot.
-            </figcaption>
-          </figure>
-        </div>
-
         <div class="controller-section" aria-labelledby="controller-title">
           <h3 id="controller-title">Final Three-Phase Control Strategy</h3>
           <p>
@@ -176,12 +150,23 @@
         <div class="media-section" aria-labelledby="media-title">
           <h3 id="media-title">Final Demonstrations</h3>
           <p>
-            The videos below showcase the final working result: one demonstration in the custom
-            DeepMind Control / MuJoCo simulation and one demonstration on the physical pendubot
-            hardware.
+            The videos below show our progression from the initial simulation, which did not transfer
+            well, to the final custom simulation and hardware demonstration.
           </p>
 
           <div class="video-grid">
+            <figure class="video-card">
+              <video controls preload="metadata">
+                <source src="early-funsearch-simulation.mp4" type="video/mp4" />
+                Your browser does not support the video tag.
+              </video>
+              <figcaption>
+                <strong>Initial simulation:</strong> early FunSearch-generated policies in the
+                original double-pendulum simulation did not work well due to poor policy quality and
+                a large sim-to-real gap.
+              </figcaption>
+            </figure>
+
             <figure class="video-card">
               <video controls preload="metadata">
                 <source src="final-simulation.mp4" type="video/mp4" />
@@ -207,27 +192,18 @@
           </div>
         </div>
 
-        <!-- Controller result plot -->
-        <div class="media-section" aria-labelledby="results-plot-title">
-          <h3 id="results-plot-title">Controller Behavior and Energy Results</h3>
-          <p>
-            To better understand the final controller behavior, we recorded the pendubot's joint
-            positions, joint velocities, control torques, and total energy over time. These plots
-            show how the controller injects energy during swing-up, transitions into the catch
-            region, and stabilizes near the upright equilibrium.
-          </p>
+        <div class="media-section" aria-labelledby="results-title">
+          <h3 id="results-title">Controller Results</h3>
 
           <figure class="video-card">
             <img
-              src="controller-results.png"
+              src="controller_results.png"
               alt="Pendubot controller results showing joint positions, joint velocities, control torques, and total energy over time."
               style="width: 100%; height: auto; border-radius: 12px;"
             />
             <figcaption>
-              <strong>Final controller results:</strong> joint position, velocity, torque, and
-              energy traces from the pendubot swing-up. The plots summarize how the controller moves
-              the system out of the downward equilibrium, builds energy, and reaches the upright
-              equilibrium.
+              <strong>Controller results:</strong> joint positions, velocities, torques, and total
+              energy during the final swing-up behavior.
             </figcaption>
           </figure>
         </div>
