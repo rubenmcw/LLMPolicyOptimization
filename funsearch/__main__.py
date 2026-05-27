@@ -157,9 +157,10 @@ def run(spec_file,
 
   timestamp = str(int(time.time()))
   folder_name = f"{timestamp}"
+  sim_env = "unknown"
   
     # Task log
-  for k in ["cheetah", "ballcup", "hopper", "reacher", "double_swingup", "double", "fish", "finger", "quadcopter", "quadruped", "unitree"]:
+  for k in ["cheetah", "ballcup", "hopper", "reacher", "double_swingup", "swingup", "double", "fish", "finger", "quadcopter", "quadruped", "unitree"]:
       if k in spec_file.name:
           folder_name = f"{k}_{inputs}_{folder_name}"
           sim_env = k
